@@ -10,7 +10,7 @@ int temp;
 int elec;
 int giro;
 int sensorElectro;
-
+//holaaaa
 void setup(){
   Serial.begin(9600);
   bt.begin(9600);
