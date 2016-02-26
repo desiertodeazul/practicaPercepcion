@@ -27,7 +27,8 @@ void loop(){
     
      sensorElectro = analogRead(A1);
 temperatura = (5.0 * analogRead(0)*100.0)/943.0;
-Serial.println (temperatura); //escribe la temperatura en el serial
+Serial.print("Temperatura\t");
+Serial.print(temperatura); //escribe la temperatura en el serial
 //delay (500);
     
 if(temperatura>30 && temperatura<39){
@@ -41,8 +42,11 @@ if(sensorElectro>0){
 }else{
   elec=0;
 }
-      giro= bt.read() - 48;
-      Serial.println(giro);
+      if(bt.available() > 0){
+        giro= bt.read() - 48;
+      }
+      Serial.print("\tAcelerometro\t");
+      Serial.print(giro);
        
 suma=temp+elec+giro;      
       switch(suma){
@@ -71,11 +75,18 @@ suma=temp+elec+giro;
         default:
         break;
       } 
+      if (suma > 3)suma = 3;
+      bt.print("Temperatura: ");
+      bt.print(temperatura);
+      bt.print("\tECG: ");
+      bt.print(sensorElectro);
+      bt.print("\tEstado: ");
+      bt.println(suma);
 
 
       
-     
+     Serial.print("\tElectrodo\t");
     Serial.println(sensorElectro);
+    delay(100);
 
-    //Serial.println(sensorPosicion);
 }
